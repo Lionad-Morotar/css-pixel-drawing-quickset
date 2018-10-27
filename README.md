@@ -1,8 +1,8 @@
-# css-drawing-quickset
+# CSS-drawing-quickset
 
-## Function Example
+## Project Preview
 
-1. pixel draw
+* 1. pixel draw
 
 Generator Pixel-Picture based on Box-Shadow Attributes.
 
