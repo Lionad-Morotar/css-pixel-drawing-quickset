@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<div id="app">
+    
+    <PixelGenerator msg="Welcome to Your Vue.js App"/>
+
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import PixelGenerator from "./pages/PixelGenerator"
 
 export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
+    name: "app",
+    components: {
+        PixelGenerator
+    }
 }
+
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+* {
+    margin: 0;
+    padding: 0;
 }
+
+#app {
+    font-family: "Avenir", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    width: 100vw;
+    height: 100vh;
+}
+
 </style>
