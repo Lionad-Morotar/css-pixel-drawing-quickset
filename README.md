@@ -10,6 +10,8 @@ Preview:
 
 ![Pixel-Picture Generator](https://i.imgur.com/wCWVyKs.png)
 
+![Picture Structure](https://i.imgur.com/Dks7aHx.png)
+
 Generatored code like this:
 
 ```
