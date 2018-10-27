@@ -133,9 +133,7 @@ export default {
 
     mounted () {
 
-        this.config.pad.line = 5
-        this.config.pad.row = 5
-        this.initPadRes()
+        this.setDefaultImage()
 
     },
     beforeDestroy () {
@@ -163,23 +161,33 @@ export default {
         },
 
         togglePixel (r, l) {
-
             let handle = this.config.pad.res && this.config.pad.res[r] && this.config.pad.res[r][l]
-            if (!handle) { return }
 
-            let data = handle.bgColor
-
+            this.config.pad.res[r][l].bgColor = handle.bgColor === this.config.tool.pointer ? this.config.tool.defaultPadColor : this.config.tool.pointer
             if (r == 0 && l == 0) {
-                this.styles.draw.backgroundColor =  data === this.config.tool.pointer ? this.config.tool.defaultPointerColor : this.config.tool.pointer
+                this.styles.draw.backgroundColor =  handle.bgColor === this.config.tool.pointer ? this.config.tool.defaultPointerColor : this.config.tool.pointer
             }
-            
-            this.config.pad.res[r][l].bgColor = data === this.config.tool.pointer ? this.config.tool.defaultPadColor : this.config.tool.pointer
 
-            this.draw()
+            this.drawBoxShadow()
         },
-        draw () {
-            let res = []
+        drawPixel (r, l) {
+            this.config.pad.res[r][l].bgColor = this.config.tool.pointer
+            if (r == 0 && l == 0) {
+                this.drawSelf(this.config.tool.pointer)
+            }
+        },
+        clearPixel (r, l) {
+            this.config.pad.res[r][l].bgColor = this.config.tool.defaultPadColor
+            if (r == 0 && l == 0) {
+                this.drawSelf(this.config.tool.defaultPointerColor)
+            }
+        },
+        drawSelf (color) {
+            this.styles.draw.backgroundColor = color
+        },
 
+        drawBoxShadow () {
+            let res = []
             this.config.pad.res.forEach((row, ri) => {
                 row.forEach((item, li) => {
                     res.push(`
@@ -189,7 +197,6 @@ export default {
                     `)
                 })
             })
-
             this.styles.draw.boxShadow = res.join(',\n')
         },
 
@@ -198,6 +205,36 @@ export default {
                 this.config.pad.res[r] && 
                 this.config.pad.res[r][l] && 
                     this.config.pad.res[r][l].bgColor
+        },
+
+        setRowAndLine (r, l) {
+            this.config.pad.line = r
+            this.config.pad.row = l
+            this.initPadRes()
+        },
+        setData (data) {
+            data.forEach((row, ri) => {
+                row.forEach((item, li) => {
+                    this.clearPixel(ri, li)
+                    if (+item)  {
+                        this.drawPixel(ri, li)
+                    }
+                })
+            })
+            this.drawBoxShadow()
+        },
+
+        /** 业务函数 */
+
+        setDefaultImage () {
+            this.setRowAndLine(5, 5)
+            this.setData([
+                [1,1,1,1,1],
+                [1,0,1,0,1],
+                [1,1,1,1,1],
+                [1,1,0,0,1],
+                [1,1,1,1,1],
+            ])
         },
 
     },
